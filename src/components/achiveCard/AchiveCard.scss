@@ -1,0 +1,51 @@
+@use "./../../style/variables.scss";
+@use "./../../style/style.scss";
+
+.achive_card {
+
+
+    box-sizing: border-box;
+
+    @extend %flex-column;
+    justify-content: space-around;
+
+    max-width: 230px;
+    min-height: 340px;
+
+    text-align: center;
+    color: #B088FF;
+
+    border-radius: 10px;
+    border: 3.5px solid #B088FF;
+
+    padding: 40px 20px;
+    overflow: hidden;
+
+    &--img {
+        width: 100px;
+        height: 110px;
+        padding-bottom: 20px;
+    }
+
+    &__info {
+        
+    }
+
+    .title {
+        font-size: 24px;
+        font-weight: 700;
+        line-height: 24px;
+        color: #B088FF;
+        padding: 0 0 5px;
+    }
+
+    .text {
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 16px;
+    }
+
+    .count {
+        text-align: left;
+    }
+}
