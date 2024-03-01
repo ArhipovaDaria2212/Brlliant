@@ -1,19 +1,39 @@
-import React from 'react'
+import React, { useState, useEffect } from "react";
+import axios from 'axios';
+
 import { Link } from 'react-router-dom'
 
 import Header from '../../components/header/Header'
 import Footer from '../../components/footer/Footer'
+import Review from "../../components/review/Review";
 
 import about_as_1 from "./../../assets/about_us/users/1.png"
 import about_as_2 from "./../../assets/about_us/users/2.png"
 import about_as_3 from "./../../assets/about_us/users/3.png"
 import gif from "./../../assets/about_us/reviews/1.gif"
-import star from "./../../assets/icons/stars/1.png"
 
 import "./AboutUs.scss"
 
 
 function AboutUs() {
+
+    let [reviewData, setReviewData] = useState(null);
+
+    useEffect(() => {
+
+        axios.get('http://localhost:8080/reviews')
+            .then(response => {
+                setReviewData(response.data);
+            })
+            .catch(error => {
+                console.error('Ошибка при получении данных:', error);
+            });
+    }, []);
+    //
+    // if (!reviewData) {
+    //     return <div>Loading...</div>;
+    // }
+
     return (
         <>
             <Header />
@@ -98,74 +118,15 @@ function AboutUs() {
                                 </div>
                             </div>
                             <div className="reviews">
-                                <div className="reviews__item">
-                                    <div className="rewiews__stars">
-                                        <img src={star} alt="" className="star" />
-                                        <img src={star} alt="" className="star" />
-                                        <img src={star} alt="" className="star" />
-                                        <img src={star} alt="" className="star" />
-                                        <img src={star} alt="" className="star" />
-                                    </div>
-                                    <h3 className="title">Джейкоб Снайдер</h3>
-                                    <p className="text">
-                                        Благодаря своим увлекательным и хорошо структурированным курсам Brilliant научила меня математическим
-                                        концепциям, которые я раньше с трудом понимал. Теперь я чувствую себя уверенно, подходя как к
-                                        техническим
-                                        собеседованиям при приеме на работу, так и к ситуациям решения реальных проблем.
-                                    </p>
-                                    <div className="category">профессионал</div>
-                                </div>
-                                <div className="reviews__item">
-                                    <div className="rewiews__stars">
-                                        <img src={star} alt="" className="star" />
-                                        <img src={star} alt="" className="star" />
-                                        <img src={star} alt="" className="star" />
-                                        <img src={star} alt="" className="star" />
-                                        <img src={star} alt="" className="star" />
-                                    </div>
-                                    <h3 className="title">Джейкоб Снайдер</h3>
-                                    <p className="text">
-                                        Благодаря своим увлекательным и хорошо структурированным курсам Brilliant научила меня математическим
-                                        концепциям, которые я раньше с трудом понимал. Теперь я чувствую себя уверенно, подходя как к
-                                        техническим
-                                        собеседованиям при приеме на работу, так и к ситуациям решения реальных проблем.
-                                    </p>
-                                    <div className="category">профессионал</div>
-                                </div>
-                                <div className="reviews__item">
-                                    <div className="rewiews__stars">
-                                        <img src={star} alt="" className="star" />
-                                        <img src={star} alt="" className="star" />
-                                        <img src={star} alt="" className="star" />
-                                        <img src={star} alt="" className="star" />
-                                        <img src={star} alt="" className="star" />
-                                    </div>
-                                    <h3 className="title">Джейкоб Снайдер</h3>
-                                    <p className="text">
-                                        Благодаря своим увлекательным и хорошо структурированным курсам Brilliant научила меня математическим
-                                        концепциям, которые я раньше с трудом понимал. Теперь я чувствую себя уверенно, подходя как к
-                                        техническим
-                                        собеседованиям при приеме на работу, так и к ситуациям решения реальных проблем.
-                                    </p>
-                                    <div className="category">профессионал</div>
-                                </div>
-                                <div className="reviews__item">
-                                    <div className="rewiews__stars">
-                                        <img src={star} alt="" className="star" />
-                                        <img src={star} alt="" className="star" />
-                                        <img src={star} alt="" className="star" />
-                                        <img src={star} alt="" className="star" />
-                                        <img src={star} alt="" className="star" />
-                                    </div>
-                                    <h3 className="title">Джейкоб Снайдер</h3>
-                                    <p className="text">
-                                        Благодаря своим увлекательным и хорошо структурированным курсам Brilliant научила меня математическим
-                                        концепциям, которые я раньше с трудом понимал. Теперь я чувствую себя уверенно, подходя как к
-                                        техническим
-                                        собеседованиям при приеме на работу, так и к ситуациям решения реальных проблем.
-                                    </p>
-                                    <div className="category">профессионал</div>
-                                </div>
+
+                                { reviewData && reviewData.map((review, index) => (
+                                    <Review key={index}
+                                            stars={review.grade}
+                                            title={review.name}
+                                            text={review.text}
+                                            category={review.category} />
+                                ))}
+
                                 <div className="pagination">
                                     <button>&lt;</button>
                                     <span className="current"> 1</span> of <span className="all">9 </span>

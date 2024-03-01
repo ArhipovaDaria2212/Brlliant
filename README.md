@@ -44,7 +44,7 @@ In the process of studying programs on the platform, the user can receive reward
 
 ## Installation and launch:
 
-* Make sure that you have Node installed.js.
+* Make sure that you have Node.js installed.
 * Clone the repository with the project.
 * In the terminal, go to the project directory and run the npm install command to install the necessary dependencies.
 * Then run npm start to launch the application.
